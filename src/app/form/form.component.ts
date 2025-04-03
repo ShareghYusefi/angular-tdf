@@ -7,7 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './form.component.css',
 })
 export class FormComponent {
-  onSubmit(form: any) {
-    console.log('Form submitted:', form.value);
+  person = {
+    email: '',
+    password: '',
+  };
+  onSubmit() {
+    console.log('Person:', this.person);
   }
 }

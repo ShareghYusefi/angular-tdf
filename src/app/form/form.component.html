@@ -1,6 +1,6 @@
 <!-- ngForm is a directive that Angular provides to create a formGroup. It is used to track the value and validity of the form. It is a built-in directive that is available in the FormsModule. -->
 <!-- ngSubmit is a directive that Angular provides to handle the form submission. It is used to bind the form submission event to a method in the component. It is a built-in directive that is available in the FormsModule. -->
-<form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+<form #registerForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="mb-3">
     <label for="email" class="form-label">Email address</label>
     <!-- ngModel is a directive that Angular provides to create a formControl. It is used to track the value and validity of the form control. It is a built-in directive that is available in the FormsModule. -->
@@ -12,7 +12,7 @@
       aria-describedby="emailHelp"
       placeholder="Enter email"
       name="email"
-      ngModel
+      [(ngModel)]="person.email"
     />
     <div id="emailHelp" class="form-text">
       We'll never share your email with anyone else.
@@ -27,7 +27,7 @@
       placeholder="Password"
       aria-describedby="passwordHelp"
       name="password"
-      ngModel
+      [(ngModel)]="person.password"
     />
   </div>
   <div class="mb-3 form-check">
