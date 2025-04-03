@@ -1,1 +1,40 @@
-<p>form works!</p>
+<!-- ngForm is a directive that Angular provides to create a formGroup. It is used to track the value and validity of the form. It is a built-in directive that is available in the FormsModule. -->
+<!-- ngSubmit is a directive that Angular provides to handle the form submission. It is used to bind the form submission event to a method in the component. It is a built-in directive that is available in the FormsModule. -->
+<form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <!-- ngModel is a directive that Angular provides to create a formControl. It is used to track the value and validity of the form control. It is a built-in directive that is available in the FormsModule. -->
+    <!-- We also need the name attribute to bind the form control to the form group. -->
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+      name="email"
+      ngModel
+    />
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder="Password"
+      aria-describedby="passwordHelp"
+      name="password"
+      ngModel
+    />
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<pre>{{ registerForm.value | json }}</pre>
