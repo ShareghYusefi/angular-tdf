@@ -1,6 +1,6 @@
 <!-- ngForm is a directive that Angular provides to create a formGroup. It is used to track the value and validity of the form. It is a built-in directive that is available in the FormsModule. -->
 <!-- ngSubmit is a directive that Angular provides to handle the form submission. It is used to bind the form submission event to a method in the component. It is a built-in directive that is available in the FormsModule. -->
-<form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+<form #registerForm="ngForm">
   <div class="mb-3">
     <label for="email" class="form-label">Email address</label>
     <!-- ngModel is a directive that Angular provides to create a formControl. It is used to track the value and validity of the form control. It is a built-in directive that is available in the FormsModule. -->
@@ -13,9 +13,28 @@
       placeholder="Enter email"
       name="email"
       [(ngModel)]="person.email"
+      #email="ngModel"
+      required
+      email
+      minlength="5"
+      maxlength="20"
     />
-    <div id="emailHelp" class="form-text">
-      We'll never share your email with anyone else.
+    <!-- We can use the #email template variable to access the ngModel instance and check for validity of the form control. -->
+    <!-- We can check to see if the form control is Touched, Untouched, Dirty, Pristine, Valid, Invalid, etc. -->
+    <!-- touched means the user has interacted with the form control. -->
+    <!-- dirty means the user has changed the value of the form control. -->
+    <div
+      *ngIf="email.touched && email.invalid && email.errors"
+      class="text-danger"
+    >
+      <div *ngIf="email.errors['required']">Password is required.</div>
+      <div *ngIf="email.errors['email']">Password is invalid.</div>
+      <div *ngIf="email.errors['minlength']">
+        Please type a minimum of 5 characters.
+      </div>
+      <div *ngIf="email.errors['maxlength']">
+        Please type a maximum of 20 characters.
+      </div>
     </div>
   </div>
   <div class="mb-3">
@@ -28,13 +47,35 @@
       aria-describedby="passwordHelp"
       name="password"
       [(ngModel)]="person.password"
+      #password="ngModel"
+      required
+      minlength="5"
     />
+  </div>
+  <div
+    *ngIf="password.touched && password.invalid && password.errors"
+    class="text-danger"
+  >
+    <div *ngIf="password.errors['required']">Email is required.</div>
+    <div *ngIf="password.errors['minlength']">
+      Please type a minimum of 5 characters.
+    </div>
   </div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <label class="form-check-label" for="exampleCheck1"
+      >Subscribe to newsletter.</label
+    >
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <!-- we can use property binding to bind the disabled property of the button to the validity of the form. -->
+  <button
+    type="submit"
+    (click)="onSubmit()"
+    class="btn btn-primary"
+    [disabled]="!registerForm.valid"
+  >
+    Submit
+  </button>
 </form>
 
 <pre>{{ registerForm.value | json }}</pre>
